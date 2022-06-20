@@ -40,6 +40,7 @@ public class Card {
 
     private void creatMemoryCard() {
         this.memoryCard.setBounds(this.posX, this.posY, this.widthCard, this.heightCard);
+
     }
 
 }
