@@ -11,7 +11,7 @@ import java.util.stream.Stream;
 public class Board {
     private JFrame frame;
     private List<JButton> cardList;
-    private ArrayList<String> nameCard = new ArrayList<>(
+    private final ArrayList<String> nameCard = new ArrayList<>(
             Arrays.asList("1", "1", "2", "2", "3", "3", "4", "4", "5", "5", "6", "6", "7", "7", "8", "8"));
 
     Board() {
@@ -35,9 +35,16 @@ public class Board {
         frame.setVisible(true);
     }
 
-    private void reversCard(JButton card) {
+    private void reversCard(JButton card)  {
+
+
+
+        card.setIcon(new ImageIcon("images/Pair_" + card.getName() + ".png"));
+
+
 
     }
+
 
 
     private void createListOfCard() {
@@ -51,7 +58,8 @@ public class Board {
                 row += 130;
                 col = 45;
             }
-            Card tempCard = new Card(col, row);
+            Card tempCard = new Card(col, row, "images/Pair_" + nameCard.get(x) + ".png");
+            //System.out.println("karty/Pair_"+nameCard.get(x)+".png");
             tempCard.getMemoryCard().setName(nameCard.get(x));
             cardList.add(tempCard.getMemoryCard());
             col += 130;
