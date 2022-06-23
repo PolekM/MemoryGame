@@ -1,18 +1,21 @@
 package MemoryGame;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.*;
 import java.util.List;
-import java.util.stream.Stream;
+import java.util.Timer;
+import java.util.concurrent.TimeUnit;
+
+import static java.lang.Thread.sleep;
 
 public class Board {
     private JFrame frame;
     private List<JButton> cardList;
     private final ArrayList<String> nameCard = new ArrayList<>(
             Arrays.asList("1", "1", "2", "2", "3", "3", "4", "4", "5", "5", "6", "6", "7", "7", "8", "8"));
+    private static int flag = 0;
+    private static JButton temp = new JButton();
+    public static int point =0;
 
     Board() {
         createBoard();
@@ -20,14 +23,29 @@ public class Board {
     }
 
     private void createBoard() {
+
         createListOfCard();
+        Process process = null;
         frame = new JFrame();
         frame.setSize(600, 600);
         frame.setLayout(null);
         frame.setResizable(false);
         cardList.forEach(card -> {
             card.addActionListener(e -> {
-                reversCard(card);
+                if (card != temp)
+                    ShowCard(card);
+
+                if (flag == 2){
+                    CheckPair(card, temp);
+                    temp = null;}
+                else
+                    temp = card;
+
+            });
+            card.addActionListener(e -> {
+                if (flag == 2) {
+                    HideCard();
+                }
             });
             frame.add(card);
         });
@@ -35,16 +53,33 @@ public class Board {
         frame.setVisible(true);
     }
 
-    private void reversCard(JButton card)  {
+    private void CheckPair(JButton firstCard, JButton secondCard) {
+
+        System.out.println("first " + firstCard.getName() + " second " + secondCard.getName());
+        if (firstCard.getName().equals(secondCard.getName())) {
+            firstCard.setVisible(false);
+            secondCard.setVisible(false);
+            flag = 0;
+            point++;
 
 
+        }
+    }
 
-        card.setIcon(new ImageIcon("images/Pair_" + card.getName() + ".png"));
 
+    private void HideCard() {
 
+        cardList.forEach(card -> card.setIcon(new ImageIcon("images/reverse.png")));
+        flag = 0;
 
     }
 
+    private void ShowCard(JButton card) {
+
+        card.setIcon(new ImageIcon("images/Pair_" + card.getName() + ".png"));
+        flag++;
+        System.out.println(flag);
+    }
 
 
     private void createListOfCard() {
