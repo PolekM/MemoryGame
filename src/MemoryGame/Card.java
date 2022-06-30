@@ -21,22 +21,6 @@ public class Card {
         creatMemoryCard();
     }
 
-    public int getWidthCard() {
-        return widthCard;
-    }
-
-    public int getHeightCard() {
-        return heightCard;
-    }
-
-    public int getPosX() {
-        return posX;
-    }
-
-    public int getPosY() {
-        return posY;
-    }
-
     public JButton getMemoryCard() {
         return memoryCard;
     }
